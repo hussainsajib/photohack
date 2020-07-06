@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './mintbean.png';
-import './styles/index.css';
+import React from "react";
+import logo from "./mintbean.png";
+import { Switch, Route } from "react-router-dom";
+import "./styles/index.css";
+import Home from "./pages/Home/Home";
+import ImagesPage from "./pages/ImagesPage/ImagesPage";
+import Layout from "./components/Layout/Layout";
 
 function App() {
-  return (
-    <div className="App">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          <code>App.js</code> is the entrypoint to your app.
-        </p>
-        <h2>HAPPY HACKING!</h2>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Layout>
+                <Switch>
+                    <Route path="/" component={Home} exact />
+                    <Route path="/images" component={ImagesPage} />
+                </Switch>
+            </Layout>
+        </div>
+    );
 }
 
 export default App;
