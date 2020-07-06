@@ -66,7 +66,11 @@ class Home extends Component {
                     />
                 </InputGroup>
                 {this.state.searchResult.length === 0 ? null : (
-                    <Gallery images={this.state.searchResult} />
+                    <Gallery
+                        images={this.state.searchResult}
+                        enableImageSelection={false}
+                        direction={"column"}
+                    />
                 )}
             </div>
         );
