@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TextInput from "../../components/TextInput/TextInput";
+import { InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 
 class Home extends Component {
@@ -11,11 +11,29 @@ class Home extends Component {
             pageNumber: 1,
         };
         this.getData = this.getData.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(e) {
+        if (e.key === "Enter") {
+            this.setState({ searchString: e.target.value }, (i) =>
+                this.getData()
+            );
+        }
     }
 
     getData() {
+        const options = {
+            headers: {
+                Authorization:
+                    "Client-ID " + process.env.REACT_APP_UNSPLASH_ACCESS_KEY,
+            },
+        };
         axios
-            .get("https://api.unsplash.com/search/photos?page=1&query=office")
+            .get(
+                "https://api.unsplash.com/search/photos?page=1&query=office",
+                options
+            )
             .then((res) => console.log(res))
             .catch((err) => console.error(err));
     }
@@ -23,8 +41,15 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <TextInput />
-                {this.getData()}
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text>Search Image</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                        aria-label="Search images"
+                        onKeyPress={this.handleChange}
+                    />
+                </InputGroup>
             </div>
         );
     }
